@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Form from './form/form';
+import Template from './form/form-template';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+type FormData = {
+    variant: string;
+} & Partial<{
+    valueA: string;
+    valueB: string;
+    valueC: string;
+    valueD: string;
+}>
+
+function useFormData() {
+    const [formData, setFormData] = useState({} as FormData);
+    
+    function updateFormData(key: string, value: any) {
+        setFormData({
+            ...formData,
+            [key]: value
+        });
+    }
+
+    return [formData, updateFormData];
 }
 
+function App() {
+    const [formData, updateFormData] = useFormData();
+    
+    return (<>
+        <div>
+            {JSON.stringify(formData)}
+        </div>
+        <div className="app">
+            <Form
+                Template={Template}
+                data={formData}
+                onUpdateData={updateFormData as (name: string, value: any) => void}
+            />
+        </div>
+    </>);
+}
+    
 export default App;
+    
