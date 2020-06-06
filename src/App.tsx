@@ -16,17 +16,19 @@ function useFormData() {
     }
 
     useEffect(() => {
-        const validate = async (formData: Entity) => {
+        const validate = async () => {
             try {
-                await FormData.validate(formData)
+                await FormData.validate(formData, {
+                    abortEarly: false
+                })
                 setErrors([]);
             } catch (validationExc) {
                 setErrors(validationExc.errors);
             }
         }
 
-        validate(formData);
-    }, [formData])
+        validate()
+    }, [formData]);
 
     return [formData, errors, updateFormData];
 }
