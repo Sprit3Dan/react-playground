@@ -28,23 +28,23 @@ function dependentPart(formCTX: FormCTX, data: any) {
                 <label>value A</label>
                 <input
                     key="valueA"
-                    value={data.valueA}
+                    defaultValue={data.valueA}
                     onChange={formCTX.onItemChange("valueA")} />
             </>);
         case 2:
             return (<>
                 <label>Value B</label>
                 <input
-                    key="valueB"
-                    value={data.valueB}
-                    onChange={formCTX.onItemChange("valueB")} />
+                    key="URL"
+                    defaultValue={data.URL}
+                    onChange={formCTX.onItemChange("URL")} />
             </>);
         case 3:
             return (<>
                 <label>Value C</label>
                 <input
                     key="valueC"
-                    value={data.valueC}
+                    defaultValue={data.valueC}
                     onChange={formCTX.onItemChange("valueC")} />
             </>);
         case 4:
@@ -52,7 +52,7 @@ function dependentPart(formCTX: FormCTX, data: any) {
                 <label>Value D</label>
                 <input
                     key="valueD"
-                    value={data.valueD}
+                    defaultValue={data.valueD}
                     onChange={formCTX.onItemChange("valueD")} />
             </>);
         default:

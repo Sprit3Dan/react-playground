@@ -2,19 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Form from './form/form';
 import Template from './form/form-template';
-import FormData from './form/validators';
-
-type FormData = {
-    variant: string;
-} & Partial<{
-    valueA: string;
-    valueB: string;
-    valueC: string;
-    valueD: string;
-}>
+import FormData, { Entity } from './form/validators';
 
 function useFormData() {
-    const [formData, setFormData] = useState({} as FormData);
+    const [formData, setFormData] = useState({} as Entity);
     const [errors, setErrors] = useState([] as any);
     
     function updateFormData(key: string, value: any) {
@@ -24,11 +15,17 @@ function useFormData() {
         });
     }
 
-    // Perform model validations
     useEffect(() => {
-        FormData.validate(formData).then((it) => {
-            console.log(it);
-        })
+        const validate = async (formData: Entity) => {
+            try {
+                await FormData.validate(formData)
+                setErrors([]);
+            } catch (validationExc) {
+                setErrors(validationExc.errors);
+            }
+        }
+
+        validate(formData);
     }, [formData])
 
     return [formData, errors, updateFormData];
