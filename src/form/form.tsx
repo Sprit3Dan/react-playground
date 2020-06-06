@@ -11,7 +11,11 @@ const formCTX = React.createContext<FormCTX>(null as any);
 const Form = (p: Pick<P, "Template" | "data">) => {
     const { Template, data } = p;
 
-    return (<Template data={data} />);
+    return (
+        <form>
+            <Template data={data} />
+        </form>
+    );
 }
 
 
